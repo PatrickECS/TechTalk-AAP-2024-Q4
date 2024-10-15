@@ -1,0 +1,7 @@
+---
+host: all
+tasks: 
+  - name: testplay
+    ansible.builtin.debug:
+      msg: Patrick hat keine Ahnung von yaml
+       
