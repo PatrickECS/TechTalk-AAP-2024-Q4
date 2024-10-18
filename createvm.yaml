@@ -1,30 +1,35 @@
 ---
-- name: create vm 
+- name: Create a VM in VMware vSphere
   hosts: localhost
-  become: false
-  gather_facts: false
+  gather_facts: no
   collections:
-    - community.vmware  
+    - vmware.vmware_rest
   tasks:
-    - name: create VM
-      community.vmware.vmware_guest:
+    - name: Connect to vCenter
+      vmware.vmware_rest.rest_login:
         hostname: "{{ vcenter_hostname }}"
         username: "{{ vcenter_username }}"
         password: "{{ vcenter_password }}"
-        validate_certs: "{{ vcenter_validate_certs }}"
-        datacenter: "{{ vcenter_datacenter }}"
-        template: "{{ vm_template }}"
+        validate_certs: no
+
+    - name: Create a new VM
+      vmware.vmware_rest.vcenter_vm:
         name: "{{ vm_name }}"
-        folder: "{{ vcenter_destination_folder }}"
-        state: "{{ vm_state }}"
-        cluster: "{{ vcenter_cluster }}"
-        disk:
-          - size_gb: "{{ vm_disk_gb }}"
-            type: "{{ vm_disk_type }}"
-            datastore: "{{ vm_disk_datastore }}"
+        guest_OS: "{{ guest_id }}"
+        placement:
+          cluster: "{{ cluster_name }}"
+          datastore: "{{ datastore_name }}"
         hardware:
-          memory_mb: "{{ vm_hw_ram_mb }}"
-          num_cpus: "{{ vm_hw_cpu_n }}"
-          scsi: "{{ vm_hw_scsi }}"
-          hotadd_cpu: "{{ hot_add_cpu | default('True') }}"
-          hotadd_memory: "{{ hot_add_memory | default('True') }}"
+          memory: "{{ memory_mb }}"
+          cpus: "{{ num_cpus }}"
+        disks:
+          - type: "thin"
+            value: "{{ disk_size_gb }}"
+        nics:
+          - network_name: "{{ vm_network_name }}"
+            start_connected: true
+
+    - name: Power on the VM
+      vmware.vmware_rest.vcenter_vm_power:
+        id: "{{ vm_name }}"
+        state: "powered_on"
