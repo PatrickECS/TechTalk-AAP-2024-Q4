@@ -3,7 +3,11 @@
   hosts: localhost
   become: false
   gather_facts: false
-   tasks:
+  
+  vars_files:
+    - vars.yml
+  
+  tasks:
     - name: create folder
       community.vmware.vcenter_folder:
         hostname: "{{ vcenter_hostname }}"
