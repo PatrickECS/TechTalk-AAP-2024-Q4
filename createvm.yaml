@@ -28,12 +28,3 @@
           scsi: "{{ vm_hw_scsi }}"
           hotadd_cpu: "{{ hot_add_cpu | default('True') }}"
           hotadd_memory: "{{ hot_add_memory | default('True') }}"
-        network:
-          - name: "{{ vm_net_name }}"
-            start_connected: yes
-            device_type: "{{ vm_net_type }}"
-            type: static
-            ip: "{{ vm_ip }}"
-            netmask: "{{ vm_net_mask }}"
-            gateway: "{{ vm_net_gw }}"
-            dns_servers: "{{ vm_net_dns }}"
