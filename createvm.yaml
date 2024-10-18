@@ -25,7 +25,6 @@
         name: "{{ vm_name }}"
         folder: "{{ vcenter_destination_folder }}"
         state: "{{ vm_state }}"
-        guest_id: "{{ vm_guestid }}"
         cluster: "{{ vcenter_cluster }}"
         disk:
           - size_gb: "{{ vm_disk_gb }}"
