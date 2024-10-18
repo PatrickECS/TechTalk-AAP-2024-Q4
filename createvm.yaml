@@ -1,7 +1,10 @@
 ---
-- name: create vm on vsphere
+- name: create vm 
   hosts: localhost
+  become: false
   gather_facts: false
+  
+  
   tasks:
     - name: create folder
       community.vmware.vcenter_folder:
@@ -45,4 +48,3 @@
             netmask: "{{ vm_net_mask }}"
             gateway: "{{ vm_net_gw }}"
             dns_servers: "{{ vm_net_dns }}"
-    
