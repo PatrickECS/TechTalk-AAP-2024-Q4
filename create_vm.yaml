@@ -1,10 +1,10 @@
 ---
-- name: create vm 
+- name: Create VM on vSphere
   hosts: localhost
   become: false
   gather_facts: true
   tasks:
-    - name: create folder
+    - name: Create folder
       community.vmware.vcenter_folder:
         hostname: "{{ vcenter_hostname }}"
         username: "{{ vcenter_username }}"
