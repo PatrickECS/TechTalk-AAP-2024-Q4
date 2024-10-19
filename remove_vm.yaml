@@ -1,0 +1,27 @@
+---
+- name: Remove a VM from vSphere
+  hosts: localhost
+  become: false
+  gather_facts: false
+  tasks:
+    - name: Power off the VM if it's running
+      community.vmware.vmware_guest:
+        hostname: "{{ vcenter_hostname }}"
+        username: "{{ vcenter_username }}"
+        password: "{{ vcenter_password }}"
+        validate_certs: "{{ vcenter_validate_certs }}"
+        datacenter: "{{ vcenter_datacenter }}"
+        folder: "{{ vcenter_destination_folder }}"
+        name: "{{ vm_name }}"
+        state: poweredoff
+
+    - name: Remove the VM from vCenter
+      community.vmware.vmware_guest:
+        hostname: "{{ vcenter_hostname }}"
+        username: "{{ vcenter_username }}"
+        password: "{{ vcenter_password }}"
+        validate_certs: "{{ vcenter_validate_certs }}"
+        datacenter: "{{ vcenter_datacenter }}"
+        folder: "{{ vcenter_destination_folder }}"
+        name: "{{ vm_name }}"
+        state: absent
