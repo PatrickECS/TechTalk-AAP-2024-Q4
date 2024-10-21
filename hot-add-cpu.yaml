@@ -1,10 +1,20 @@
 ---
 - name: Hot-Add CPU to a running VM in vCenter
   hosts: localhost
-  gather_facts: true
+  gather_facts: false
 
   tasks:
-      - name: Hot-Add CPU to the VM
+    - name: Ensure the community.vmware collection is installed
+      ansible.builtin.meta: flush_handlers
+
+    - name: Connect to vCenter
+      community.vmware.vmware_host:
+        hostname: "{{ vcenter_hostname }}"
+        username: "{{ vcenter_username }}"
+        password: "{{ vcenter_password }}"
+        validate_certs: no
+
+    - name: Hot-Add CPU to the VM
       community.vmware.vmware_guest:
         hostname: "{{ vcenter_hostname }}"
         username: "{{ vcenter_username }}"
