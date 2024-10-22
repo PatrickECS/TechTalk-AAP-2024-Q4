@@ -37,3 +37,7 @@
           scsi: "{{ vm_hw_scsi }}"
           hotadd_cpu: "{{ hot_add_cpu | default('True') }}"
           hotadd_memory: "{{ hot_add_memory | default('True') }}"
+
+    - name: Display success message when the VM is deployed
+      debug:
+        msg: "The VM '{{ vm_name }}' has been successfully deployed in folder '{{ vcenter_destination_folder }}'."
