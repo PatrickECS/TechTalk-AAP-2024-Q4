@@ -25,3 +25,6 @@
         folder: "{{ vcenter_destination_folder }}"
         name: "{{ vm_name }}"
         state: absent
+    - name: Display success message when the VM is removed
+      debug:
+        msg: "The VM '{{ vm_name }}' has been successfully removed from vCenter."
