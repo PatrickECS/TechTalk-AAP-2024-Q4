@@ -15,4 +15,3 @@
         vlan_id: "{{ vlan_id }}"
         port_binding: "static"  # Set port binding to static
         state: present
-      delegate_to: localhost
