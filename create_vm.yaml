@@ -26,6 +26,7 @@
         folder: "{{ vcenter_destination_folder }}"
         state: "{{ vm_state }}"
         cluster: "{{ vcenter_cluster }}"
+        resource_pool: "{{ vcenter_resource_pool }}"
         disk:
           - size_gb: "{{ vm_disk_gb }}"
             type: "{{ vm_disk_type }}"
