@@ -1,37 +1,15 @@
----
-- name: Deploy Distributed Portgroup on VMware vSphere Distributed Switch (VDS)
+- name: Deploy a new VMware Port Group
   hosts: localhost
   gather_facts: no
   tasks:
-
-    - name: Create distributed portgroup on VDS
+    - name: Create a new port group
       community.vmware.vmware_dvs_portgroup:
         hostname: "{{ vcenter_hostname }}"
         username: "{{ vcenter_username }}"
         password: "{{ vcenter_password }}"
         validate_certs: no
-        datacenter_name: "{{ datacenter_name }}"
-        switch_name: "{{ dvswitch_name }}"
+        dvs_name: "{{ dvs_name }}"
         portgroup_name: "{{ portgroup_name }}"
         vlan_id: "{{ vlan_id }}"
-        number_of_ports: "{{ number_of_ports }}"
-        port_binding: "static"  # Options: 'static', 'ephemeral', 'dynamic'
-        port_allocation: "elastic"  # Options: 'elastic' or 'fixed'
-        vlan_type: vlan  # Other types are 'trunk' or 'pvlan'
         state: present
       delegate_to: localhost
-
-    - name: Verify distributed portgroup creation
-      community.vmware.vmware_dvs_portgroup_info:
-        hostname: "{{ vcenter_hostname }}"
-        username: "{{ vcenter_username }}"
-        password: "{{ vcenter_password }}"
-        datacenter_name: "{{ datacenter_name }}"
-        validate_certs: no
-      delegate_to: localhost
-      register: dvs_portgroup_info
-
-    - name: Display the created distributed portgroup info
-      debug:
-        msg: "{{ dvs_portgroup_info }}"
-
