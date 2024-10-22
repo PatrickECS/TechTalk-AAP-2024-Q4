@@ -15,6 +15,8 @@
         portgroup_name: "{{ portgroup_name }}"
         vlan_id: "{{ vlan_id }}"
         number_of_ports: "{{ number_of_ports }}"
+        port_binding: "static"  # Options: 'static', 'ephemeral', 'dynamic'
+        port_allocation: "elastic"  # Options: 'elastic' or 'fixed'
         vlan_type: vlan  # Other types are 'trunk' or 'pvlan'
         state: present
       delegate_to: localhost
