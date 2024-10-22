@@ -1,5 +1,5 @@
 ---
 collections:
   - name: community.vmware
-  - name: community.vmware.vmware_guest_wait
+  - name: community.vmware.vmware_guest
   - name: ansible.posix
