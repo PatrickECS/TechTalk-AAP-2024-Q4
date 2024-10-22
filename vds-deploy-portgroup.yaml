@@ -14,3 +14,8 @@
         vlan_id: "{{ vlan_id }}"
         port_binding: "static"  # Set port binding to static
         state: present
+      delegate_to: localhost
+
+    - name: Display success message when the port group is deployed
+      debug:
+        msg: "The port group '{{ portgroup_name }}' has been successfully deployed on switch '{{ switch_name }}'."
