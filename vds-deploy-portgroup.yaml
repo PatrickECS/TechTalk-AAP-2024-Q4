@@ -9,7 +9,6 @@
         username: "{{ vcenter_username }}"
         password: "{{ vcenter_password }}"
         validate_certs: no
-        dvs_name: "{{ dvs_name }}"
         switch_name: "{{ switch_name}}"
         portgroup_name: "{{ portgroup_name }}"
         vlan_id: "{{ vlan_id }}"
