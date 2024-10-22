@@ -1,0 +1,75 @@
+---
+- name: Create a template from an existing ISO with OOBE
+  hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Create a new VM from ISO
+      community.vmware.vmware_guest:
+        hostname: "{{ vcenter_hostname }}"
+        username: "{{ vcenter_username }}"
+        password: "{{ vcenter_password }}"
+        validate_certs: "{{ vcenter_validate_certs }}"
+        datacenter: "{{ vcenter_datacenter }}"
+        name: "{{ new_vm_name }}"  # Name of the new VM
+        state: poweredon  # Power on the VM after creation
+        template: false  # Specify that we are creating a new VM
+        hardware:
+          memory_mb: "{{ vm_memory_mb }}"
+          num_cpus: "{{ vm_num_cpus }}"
+        disk:
+          - size_gb: "{{ vm_disk_size_gb }}"
+            datastore: "{{ vcenter_datastore }}"
+        networks:
+          - name: "{{ vcenter_network }}"
+            type: dhcp  # Configure network settings
+        cdrom:
+          - datastore: "{{ vcenter_datastore }}"
+            iso_path: "{{ iso_path }}"  # Path to the ISO
+            connected: true
+            start_connected: true
+
+    - name: Wait for the VM to be reachable
+      community.vmware.vmware_guest_wait:
+        hostname: "{{ vcenter_hostname }}"
+        username: "{{ vcenter_username }}"
+        password: "{{ vcenter_password }}"
+        validate_certs: "{{ vcenter_validate_certs }}"
+        name: "{{ new_vm_name }}"
+        wait_timeout: 600
+
+    - name: Run Sysprep on the Windows VM
+      community.vmware.vmware_guest_command:
+        hostname: "{{ vcenter_hostname }}"
+        username: "{{ vcenter_username }}"
+        password: "{{ vcenter_password }}"
+        validate_certs: "{{ vcenter_validate_certs }}"
+        name: "{{ new_vm_name }}"
+        command: "C:\\Windows\\System32\\Sysprep\\sysprep.exe"
+        args:
+          - "/oobe"  # Out of Box Experience
+          - "/generalize"  # Generalize the Windows installation
+          - "/shutdown"  # Shut down the VM after sysprep is complete
+
+    - name: Wait for the VM to be powered off
+      community.vmware.vmware_guest_powerstate:
+        hostname: "{{ vcenter_hostname }}"
+        username: "{{ vcenter_username }}"
+        password: "{{ vcenter_password }}"
+        validate_certs: "{{ vcenter_validate_certs }}"
+        name: "{{ new_vm_name }}"
+        state: poweredoff
+
+    - name: Convert existing VM to template
+      community.vmware.vmware_guest:
+        hostname: "{{ vcenter_hostname }}"
+        username: "{{ vcenter_username }}"
+        password: "{{ vcenter_password }}"
+        validate_certs: "{{ vcenter_validate_certs }}"
+        datacenter: "{{ vcenter_datacenter }}"
+        name: "{{ new_vm_name }}"
+        folder: "{{ vcenter_folder }}"
+        state: template  # Convert the VM to a template
+
+    - name: Display success message
+      debug:
+        msg: "The VM '{{ new_vm_name }}' has been created from ISO and converted to a template."
