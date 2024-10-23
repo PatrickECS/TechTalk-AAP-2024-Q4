@@ -5,7 +5,7 @@
 
   tasks:
     - name: Delete completed pods in all namespaces
-      redhat.openshift.k8s.pod:
+      redhat.openshift.k8s:
         state: absent
         namespace: "*"
         selector: status=Completed
