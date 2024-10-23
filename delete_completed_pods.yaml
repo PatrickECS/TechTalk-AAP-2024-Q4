@@ -1,0 +1,8 @@
+- name: Delete all completed Pods in all Namespaces
+  hosts: localhost
+  gather_facts: true
+
+  tasks:
+    - name: Delete all completed pods when status=Completed in all Namespaces
+      oc:
+        command: delete pods --all-namespaces --selector status=Completed
