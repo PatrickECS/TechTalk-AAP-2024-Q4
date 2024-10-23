@@ -1,8 +1,11 @@
-- name: Delete all completed Pods in all Namespaces
+---
+- name: Delete all completed pods in all namespaces
   hosts: localhost
-  gather_facts: true
+  gather_facts: no
 
   tasks:
-    - name: Delete all completed pods when status=Completed in all Namespaces
-      oc:
-        command: delete pods --all-namespaces --selector status=Completed
+    - name: Delete completed pods in all namespaces
+      redhat.openshift.k8s.pod:
+        state: absent
+        namespace: "*"
+        selector: status=Completed
