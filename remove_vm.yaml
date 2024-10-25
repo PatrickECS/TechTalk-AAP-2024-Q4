@@ -5,7 +5,7 @@
   gather_facts: false
   tasks:
     - name: Power off the VM if it's running
-      vmware.vmware.vmware_guest:
+      community.vmware_guest:
         hostname: "{{ vcenter_hostname }}"
         username: "{{ vcenter_username }}"
         password: "{{ vcenter_password }}"
@@ -16,7 +16,7 @@
         state: poweredoff
 
     - name: Remove the VM from vCenter
-      vmware.vmware.vmware_guest:
+      community.vmware_guest:
         hostname: "{{ vcenter_hostname }}"
         username: "{{ vcenter_username }}"
         password: "{{ vcenter_password }}"
