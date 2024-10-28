@@ -4,16 +4,26 @@
   become: true
   gather_facts: true
 
+  vars:
+    rhsm_user: "<your_email>"
+    rhsm_password: "<your_password>"
+
   tasks:
-   
     - name: Ensure Subscription Manager is installed
       yum:
         name: subscription-manager
         state: present
 
+    - name: Check if the system is already registered
+      command: subscription-manager status
+      register: rhsm_status
+      ignore_errors: yes
+
     - name: Register the system with Red Hat Subscription Manager using email and password
-      command: >
-        subscription-manager register --username "{{ rhsm_user }}" --password "{{ rhsm_password }}"
+      command: subscription-manager register --username "{{ rhsm_user }}" --password "{{ rhsm_password }}"
       register: rhsm_register
-      failed_when: "'already registered' not in rhsm_register.stderr"
-      changed_when: "'The system has been registered with ID' in rhsm_register.stdout"
+      when: rhsm_status.failed
+      failed_when: "'The system has been registered' not in rhsm_register.stdout"
+      changed_when: "'The system has been registered' in rhsm_register.stdout"
+      tags: register
+
