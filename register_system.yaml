@@ -22,12 +22,3 @@
       register: rhsm_register
       failed_when: "'already registered' not in rhsm_register.stderr"
       changed_when: "'The system has been registered with ID' in rhsm_register.stdout"
-
-    - name: Ensure system is registered with Insights
-      command: insights-client --register
-      register: insights_register
-      changed_when: "'Insights successfully registered' in insights_register.stdout or 'Machine already registered' in insights_register.stdout"
-
-    - name: Display status of Insights registration
-      debug:
-        msg: "Insights registration status: {{ insights_register.stdout }}"
