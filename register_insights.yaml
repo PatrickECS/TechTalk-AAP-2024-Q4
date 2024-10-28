@@ -1,0 +1,19 @@
+---
+- name: Register system with Red Hat Insights
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Ensure Insights client is installed
+      yum:
+        name: insights-client
+        state: present
+
+    - name: Register the system with Red Hat Insights
+      command: insights-client --register
+      register: insights_register
+      changed_when: "'Insights successfully registered' in insights_register.stdout or 'Machine already registered' in insights_register.stdout"
+
+    - name: Display status of Insights registration
+      debug:
+        msg: "Insights registration status: {{ insights_register.stdout }}"
