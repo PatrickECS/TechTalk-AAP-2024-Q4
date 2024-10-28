@@ -1,5 +1,5 @@
 ---
-- name: Register system with Red Hat Subscription Manager and Insights using email/password
+- name: Register system with Red Hat Subscription Manager using email/password
   hosts: all
   become: true
   gather_facts: true
