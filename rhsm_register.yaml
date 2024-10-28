@@ -3,11 +3,6 @@
   hosts: all
   become: true
   gather_facts: true
-
-  vars:
-    rhsm_user: "<your_email>"
-    rhsm_password: "<your_password>"
-
   tasks:
     - name: Ensure Subscription Manager is installed
       yum:
