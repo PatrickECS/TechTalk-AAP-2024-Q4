@@ -3,11 +3,11 @@
   hosts: all
   become: true
   tasks:
-    - name: Open necessary ports for Apache
-      firewalld:
-        port: 80/tcp
-        permanent: true
-        state: enabled
+   # - name: Open necessary ports for Apache
+   #   firewalld:
+   #     port: 80/tcp
+   #     permanent: true
+   #     state: enabled
 
     - name: Install Apache
       package:
