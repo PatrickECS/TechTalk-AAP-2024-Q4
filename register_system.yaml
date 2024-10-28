@@ -2,16 +2,10 @@
 - name: Register system with Red Hat Subscription Manager and Insights using email/password
   hosts: all
   become: true
+  gather_facts: true
 
   tasks:
-    - name: Set system keyboard layout to German (de)
-      hosts: all
-      become: true
-
-    - name: Set keyboard layout to German
-      command: localectl set-keymap de
-      changed_when: false   # Since localectl does not provide output on success, we assume no change
-
+   
     - name: Ensure Subscription Manager is installed
       yum:
         name: subscription-manager
