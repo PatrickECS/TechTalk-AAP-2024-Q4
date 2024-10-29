@@ -6,7 +6,7 @@
 
   tasks:
     - name: Create Folder in VMware Datacenter
-      community.vmware.vmware_folder:
+      community.vmware.vmware_guest:
         hostname: "{{ vcenter_hostname }}"
         username: "{{ vcenter_username }}"
         password: "{{ vcenter_password }}"
@@ -20,7 +20,7 @@
         msg: "Folder '{{ folder_name }}' created in datacenter '{{ datacenter_name }}'."
 
     - name: Create a Default Resource Pool in VMware Cluster
-      community.vmware.vmware_resource_pool:
+      community.vmware.vmware_guest:
         hostname: "{{ vcenter_hostname }}"
         username: "{{ vcenter_username }}"
         password: "{{ vcenter_password }}"
