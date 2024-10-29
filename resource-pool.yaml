@@ -14,6 +14,7 @@
         validate_certs: "{{ vcenter_validate_certs }}"
         datacenter: "{{ vcenter_datacenter }}"
         resource_pool: '{{ resource_pool_name }}'
+        cluster: '{{ cluster_name }}'
         state: present
       register: resource_pool_creation_result
 
