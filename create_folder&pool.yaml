@@ -1,9 +1,8 @@
----
 - name: Create Folder for Onboarding User
   hosts: localhost
   become: false
   gather_facts: false
-
+  
   tasks:
     - name: Create folder
       community.vmware.vcenter_folder:
@@ -12,13 +11,11 @@
         password: "{{ vcenter_password }}"
         validate_certs: "{{ vcenter_validate_certs }}"
         datacenter: "{{ vcenter_datacenter }}"
-        folder: "{{ vcenter_destination_folder }}"
+        folder_name: "{{ vcenter_destination_folder }}"
         folder_type: vm
         state: present
-        parent_folder: "User"  # Existing parent folder name
-
-      register: folder_creation_result
+        parent_folder: "User"
 
     - name: Debug folder creation message
       debug:
-        msg: "Folder '{{ vcenter_destination_folder }}' created successfully in datacenter '{{ vcenter_datacenter }}'."
+        msg: "Folder '{{ vcenter_destination_folder }}' created successfully in datacenter '{{ vcenter_datacenter }}'"
