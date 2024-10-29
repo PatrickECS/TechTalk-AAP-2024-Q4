@@ -6,7 +6,7 @@
 
   tasks:
     - name: Create folder
-      community.vmware.vmware_folder:
+      community.vmware.vcenter_folder:
         hostname: "{{ vcenter_hostname }}"
         username: "{{ vcenter_username }}"
         password: "{{ vcenter_password }}"
