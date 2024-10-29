@@ -5,16 +5,16 @@
   gather_facts: true
 
     tasks:
-    - name: Create folder
-      community.vmware.vcenter_folder:
-        hostname: "{{ vcenter_hostname }}"
-        username: "{{ vcenter_username }}"
-        password: "{{ vcenter_password }}"
-        validate_certs: "{{ vcenter_validate_certs }}"
-        datacenter: "{{ vcenter_datacenter }}"
-        folder_name: "{{ vcenter_destination_folder }}"
-        folder_type: vm
-        state: present
+      - name: Create folder
+        community.vmware.vcenter_folder:
+          hostname: "{{ vcenter_hostname }}"
+          username: "{{ vcenter_username }}"
+          password: "{{ vcenter_password }}"
+          validate_certs: "{{ vcenter_validate_certs }}"
+          datacenter: "{{ vcenter_datacenter }}"
+          folder_name: "{{ vcenter_destination_folder }}"
+          folder_type: vm
+          state: present
         
     - name: Debug Folder Creation
       debug:
