@@ -3,19 +3,18 @@
   hosts: localhost
   become: false
   gather_facts: false
-
+  
   tasks:
-    - name: Create folder
+    - name: create folder
       community.vmware.vcenter_folder:
         hostname: "{{ vcenter_hostname }}"
         username: "{{ vcenter_username }}"
         password: "{{ vcenter_password }}"
         validate_certs: "{{ vcenter_validate_certs }}"
         datacenter: "{{ vcenter_datacenter }}"
-        folder: "{{ vcenter_destination_folder }}"
+        folder_name: "{{ vcenter_destination_folder }}"
+        folder_type: vm
         state: present
-        type: vm
-
     - name: Debug Folder Creation
       debug:
         msg: "Folder '{{ vcenter_destination_folder }}' created in datacenter '{{ vcenter_datacenter }}'."
