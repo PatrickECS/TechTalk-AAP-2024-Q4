@@ -1,18 +1,28 @@
 ---
-- name: create vm 
+- name: Create a subfolder under VM folder on given datacenter
   hosts: localhost
   become: false
   gather_facts: false
+
   
-tasks:
-- name: Create a sub folder under VM folder on given datacenter
-  community.vmware.vcenter_folder:
-    hostname: '{{ vcenter_hostname }}'
-    username: '{{ vcenter_username }}'
-    password: '{{ vcenter_password }}'
-    datacenter_name: datacenter_name
-    folder_name: sample_sub_folder
-    parent_folder: vm_folder
-    state: present
-  register: sub_folder_creation_result
-  delegate_to: localhost
+  tasks:
+    - name: Create subfolder under VM folder
+      community.vmware.vcenter_folder:
+        hostname: "{{ vcenter_hostname }}"
+        username: "{{ vcenter_username }}"
+        password: "{{ vcenter_password }}"
+        validate_certs: false  # Set to true if you want to validate SSL certificates
+        datacenter: "{{ datacenter_name }}"
+        folder: "{{ parent_folder }}/{{ sub_folder_name }}"
+        state: present
+      register: sub_folder_creation_result
+      delegate_to: localhost
+
+    - name: Debug Folder Creation Result
+      debug:
+        var: sub_folder_creation_result
+
+    - name: Display confirmation message
+      debug:
+        msg: "Subfolder '{{ sub_folder_name }}' has been successfully created under '{{ parent_folder }}' in datacenter '{{ datacenter_name }}'."
+      when: sub_folder_creation_result is changed  # Only show if the folder was created
