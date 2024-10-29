@@ -2,20 +2,20 @@
 - name: Deploy Folder and Default Resource Pool in VMware
   hosts: localhost
   become: false
-  gather_facts: true
+  gather_facts: false
 
-    tasks:
-      - name: Create folder
-        community.vmware.vcenter_folder:
-          hostname: "{{ vcenter_hostname }}"
-          username: "{{ vcenter_username }}"
-          password: "{{ vcenter_password }}"
-          validate_certs: "{{ vcenter_validate_certs }}"
-          datacenter: "{{ vcenter_datacenter }}"
-          folder_name: "{{ vcenter_destination_folder }}"
-          folder_type: vm
-          state: present
-        
+  tasks:
+    - name: Create folder
+      community.vmware.vmware_folder:
+        hostname: "{{ vcenter_hostname }}"
+        username: "{{ vcenter_username }}"
+        password: "{{ vcenter_password }}"
+        validate_certs: "{{ vcenter_validate_certs }}"
+        datacenter: "{{ vcenter_datacenter }}"
+        folder: "{{ vcenter_destination_folder }}"
+        state: present
+        type: vm
+
     - name: Debug Folder Creation
       debug:
         msg: "Folder '{{ vcenter_destination_folder }}' created in datacenter '{{ vcenter_datacenter }}'."
