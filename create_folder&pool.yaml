@@ -14,9 +14,9 @@
         password: "{{ vcenter_password }}"
         validate_certs: "{{ vcenter_validate_certs }}"
         datacenter: "{{ vcenter_datacenter }}"
-        folder_name: "{{ vcenter_destination_folder }}"
+        folder_name: "{{ vcenter_parent_folder }}/{{ vcenter_subfolder }}"
         folder_type: vm
         state: present
     - name: Debug Folder Creation
       debug:
-        msg: "Folder '{{ vcenter_destination_folder }}' created in datacenter '{{ vcenter_datacenter }}'."
+        msg: "Folder '{{ vcenter_subfolder }}' created in datacenter '{{ vcenter_datacenter }}'."
