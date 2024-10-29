@@ -18,11 +18,7 @@
       register: sub_folder_creation_result
       delegate_to: localhost
 
-    - name: Debug Folder Creation Result
-      debug:
-        var: sub_folder_creation_result
-
     - name: Display confirmation message
       debug:
         msg: "Subfolder '{{ sub_folder_name }}' has been successfully created under '{{ parent_folder }}' in datacenter '{{ datacenter_name }}'."
-      when: sub_folder_creation_result is changed  # Only show if the folder was created
+      
