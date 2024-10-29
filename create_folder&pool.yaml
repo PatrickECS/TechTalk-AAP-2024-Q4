@@ -19,4 +19,4 @@
         state: present
     - name: Debug Folder Creation
       debug:
-        msg: "Folder '{{ vcenter_subfolder }}' created in datacenter '{{ vcenter_datacenter }}'."
+        msg: "Subfolder '{{ vcenter_subfolder }}' created inside folder '{{ vcenter_parent_folder }}' in datacenter '{{ vcenter_datacenter }}'."
