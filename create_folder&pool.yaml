@@ -1,8 +1,10 @@
 ---
-- name: Deploy Folder and Default Resource Pool in VMware
+- name: create vm 
   hosts: localhost
   become: false
   gather_facts: false
+  
+
   
   tasks:
     - name: create folder
