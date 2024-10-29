@@ -1,0 +1,38 @@
+- name: Delete Folder and Resource Pool for User
+  hosts: localhost
+  become: false
+  gather_facts: false
+
+  tasks:
+    - name: Delete folder
+      community.vmware.vcenter_folder:
+        hostname: "{{ vcenter_hostname }}"
+        username: "{{ vcenter_username }}"
+        password: "{{ vcenter_password }}"
+        validate_certs: "{{ vcenter_validate_certs }}"
+        datacenter: "{{ vcenter_datacenter }}"
+        folder_name: "{{ vcenter_destination_folder }}"
+        folder_type: vm
+        state: absent  
+        parent_folder: "User"
+
+    - name: Debug folder deletion message
+      debug:
+        msg: "Folder '{{ vcenter_destination_folder }}' deleted successfully from datacenter '{{ vcenter_datacenter }}'"
+
+    - name: Delete Resource Pool
+      community.vmware.vmware_resource_pool:
+        hostname: "{{ vcenter_hostname }}"
+        username: "{{ vcenter_username }}"
+        password: "{{ vcenter_password }}"
+        validate_certs: "{{ vcenter_validate_certs }}"
+        datacenter: "{{ vcenter_datacenter }}"
+        resource_pool: "{{ resource_pool_name }}"
+        cluster: "{{ cluster_name }}"
+        state: absent  
+      register: resource_pool_deletion_result
+
+    - name: Display confirmation message
+      debug:
+        msg: "Resource Pool '{{ resource_pool_name }}' deleted successfully from datacenter '{{ vcenter_datacenter }}'."
+      when: resource_pool_deletion_result is changed  # Only show if the resource pool was deleted
