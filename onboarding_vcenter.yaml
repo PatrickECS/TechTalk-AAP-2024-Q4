@@ -18,7 +18,8 @@
 
     - name: Debug folder creation message
       debug:
-        msg: "Folder '{{ vcenter_destination_folder }}' created successfully in datacenter '{{ vcenter_datacenter }}'" tasks:
+        msg: "Folder '{{ vcenter_destination_folder }}' created successfully in datacenter '{{ vcenter_datacenter }}'" 
+        
     - name: Create Resource Pool
       community.vmware.vmware_resource_pool:
         hostname: "{{ vcenter_hostname }}"
