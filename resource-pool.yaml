@@ -14,7 +14,6 @@
         validate_certs: "{{ vcenter_validate_certs }}"
         datacenter: "{{ vcenter_datacenter }}"
         resource_pool: "{{ resource_pool_name }}"
-        parent_resource_pool: "{{ parent_resource_pool }}"  # Specify the parent resource pool
         state: present
       register: resource_pool_creation_result
 
