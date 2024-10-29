@@ -1,0 +1,42 @@
+---
+- name: Deploy Folder and Default Resource Pool in VMware
+  hosts: localhost
+  become: false
+  gather_facts: true
+
+  tasks:
+    - name: Create Folder in VMware Datacenter
+      community.vmware.vmware_folder:
+        hostname: "{{ vcenter_hostname }}"
+        username: "{{ vcenter_username }}"
+        password: "{{ vcenter_password }}"
+        validate_certs: no
+        datacenter: "{{ datacenter_name }}"
+        folder: "{{ folder_name }}"
+        state: present
+
+    - name: Debug Folder Creation
+      debug:
+        msg: "Folder '{{ folder_name }}' created in datacenter '{{ datacenter_name }}'."
+
+    - name: Create a Default Resource Pool in VMware Cluster
+      community.vmware.vmware_resource_pool:
+        hostname: "{{ vcenter_hostname }}"
+        username: "{{ vcenter_username }}"
+        password: "{{ vcenter_password }}"
+        validate_certs: no
+        cluster_name: "{{ cluster_name }}"
+        resource_pool: "{{ resource_pool_name }}"
+        cpu_expandable: true
+        cpu_limit: -1                # -1 indicates no limit
+        cpu_reservation: 0           # No reservation
+        cpu_share_level: normal      # Default CPU share level
+        mem_expandable: true
+        mem_limit: -1                # -1 indicates no limit
+        mem_reservation: 0           # No reservation
+        mem_share_level: normal      # Default memory share level
+        state: present
+
+    - name: Debug Resource Pool Creation
+      debug:
+        msg: "Resource pool '{{ resource_pool_name }}' created in cluster '{{ cluster_name }}' with default settings."
