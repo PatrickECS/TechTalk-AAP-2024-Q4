@@ -4,19 +4,15 @@
   become: false
   gather_facts: false
   
-
-  
-  tasks:
-    - name: create folder
-      community.vmware.vcenter_folder:
-        hostname: "{{ vcenter_hostname }}"
-        username: "{{ vcenter_username }}"
-        password: "{{ vcenter_password }}"
-        validate_certs: "{{ vcenter_validate_certs }}"
-        datacenter: "{{ vcenter_datacenter }}"
-        folder_name: "{{ vcenter_parent_folder }}/{{ vcenter_subfolder }}"
-        folder_type: vm
-        state: present
-    - name: Debug Folder Creation
-      debug:
-        msg: "Subfolder '{{ vcenter_subfolder }}' created inside folder '{{ vcenter_parent_folder }}' in datacenter '{{ vcenter_datacenter }}'."
+tasks:
+- name: Create a sub folder under VM folder on given datacenter
+  community.vmware.vcenter_folder:
+    hostname: '{{ vcenter_hostname }}'
+    username: '{{ vcenter_username }}'
+    password: '{{ vcenter_password }}'
+    datacenter_name: datacenter_name
+    folder_name: sample_sub_folder
+    parent_folder: vm_folder
+    state: present
+  register: sub_folder_creation_result
+  delegate_to: localhost
