@@ -1,24 +1,21 @@
----
-- name: Create a subfolder under VM folder on given datacenter
+- name: Create Folder for Onboarding User
   hosts: localhost
   become: false
   gather_facts: false
-
   
   tasks:
-    - name: Create subfolder under VM folder
+    - name: Create folder
       community.vmware.vcenter_folder:
         hostname: "{{ vcenter_hostname }}"
         username: "{{ vcenter_username }}"
         password: "{{ vcenter_password }}"
-        validate_certs: false  # Set to true if you want to validate SSL certificates
-        datacenter: "{{ vcenter_datacenter_name }}"
-        folder: "{{ parent_folder }}/{{ folder_name }}"
+        validate_certs: "{{ vcenter_validate_certs }}"
+        datacenter: "{{ vcenter_datacenter }}"
+        folder_name: "{{ vcenter_destination_folder }}"
+        folder_type: vm
         state: present
-      register: sub_folder_creation_result
-      delegate_to: localhost
+        parent_folder: "User"
 
-    - name: Display confirmation message
+    - name: Debug folder creation message
       debug:
-        msg: "Subfolder '{{ folder_name }}' has been successfully created under '{{ parent_folder }}' in datacenter '{{ vcenter_datacenter_name }}'."
-      
+        msg: "Folder '{{ vcenter_destination_folder }}' created successfully in datacenter '{{ vcenter_datacenter }}'"
