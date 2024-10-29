@@ -12,7 +12,7 @@
         username: "{{ vcenter_username }}"
         password: "{{ vcenter_password }}"
         validate_certs: false  # Set to true if you want to validate SSL certificates
-        datacenter: "{{ datacenter_name }}"
+        datacenter: "{{ vcenter_datacenter_name }}"
         folder: "{{ parent_folder }}/{{ sub_folder_name }}"
         state: present
       register: sub_folder_creation_result
@@ -20,5 +20,5 @@
 
     - name: Display confirmation message
       debug:
-        msg: "Subfolder '{{ sub_folder_name }}' has been successfully created under '{{ parent_folder }}' in datacenter '{{ datacenter_name }}'."
+        msg: "Subfolder '{{ sub_folder_name }}' has been successfully created under '{{ parent_folder }}' in datacenter '{{ vcenter_datacenter_name }}'."
       
