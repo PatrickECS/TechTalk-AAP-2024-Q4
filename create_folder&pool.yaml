@@ -11,13 +11,13 @@
         username: "{{ vcenter_username }}"
         password: "{{ vcenter_password }}"
         validate_certs: no
-        datacenter: "{{ datacenter_name }}"
+        datacenter: "{{ vcenter_datacenter }}"
         folder: "{{ folder_name }}"
         state: present
 
     - name: Debug Folder Creation
       debug:
-        msg: "Folder '{{ folder_name }}' created in datacenter '{{ datacenter_name }}'."
+        msg: "Folder '{{ folder_name }}' created in datacenter '{{ vcenter_datacenter }}'."
 
     - name: Create a Default Resource Pool in VMware Cluster
       community.vmware.vmware_guest:
@@ -25,7 +25,7 @@
         username: "{{ vcenter_username }}"
         password: "{{ vcenter_password }}"
         validate_certs: no
-        cluster_name: "{{ cluster_name }}"
+        cluster_name: "{{ vcenter_cluster }}"
         resource_pool: "{{ resource_pool_name }}"
         cpu_expandable: true
         cpu_limit: -1                # -1 indicates no limit
@@ -39,4 +39,4 @@
 
     - name: Debug Resource Pool Creation
       debug:
-        msg: "Resource pool '{{ resource_pool_name }}' created in cluster '{{ cluster_name }}' with default settings."
+        msg: "Resource pool '{{ resource_pool_name }}' created in cluster '{{ vcenter_cluster }}' with default settings."
