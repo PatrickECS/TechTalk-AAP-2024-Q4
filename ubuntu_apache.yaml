@@ -1,5 +1,5 @@
 ---
-- name: Ubuntu VM mit Apache Webserver konfigurieren
+- name:  Apache Webserver configuration on Ubuntu
   hosts: all
   become: true
 
