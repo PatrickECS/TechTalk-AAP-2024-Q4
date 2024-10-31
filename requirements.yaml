@@ -2,6 +2,3 @@
 collections:
   - name: community.vmware
   - name: ansible.posix
-  - name: microsoft.ad
-  #- name: vmware.vmware
-
