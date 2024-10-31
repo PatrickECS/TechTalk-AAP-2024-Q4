@@ -1,0 +1,19 @@
+---
+- name: Install packages on Ubuntu
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Update system and upgrade packages
+      apt:
+        update_cache: yes
+        upgrade: dist
+
+    - name: Install common packages
+      apt:
+        name:
+          - curl
+          - htop
+          - tree
+          - podman
+        state: present
