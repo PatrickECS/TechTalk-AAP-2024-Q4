@@ -32,8 +32,8 @@
           <body>
             <h1>Herzlich Willkommen!</h1>
             <p>Diese Webseite wurde vollautomatisch mit Ansible aufgesetzt. In einem einzigen, durchdachten Prozess wurden die notwendigen Pakete installiert und dieser Apache-Webserver konfiguriert.</p>
-            <p>Das ist die Zukunft der IT-Automatisierung – flexibel, wiederholbar und absolut zuverlässig.</p>
-            <p>Mit einem Klick hat Ansible dafür gesorgt, dass Sie jetzt hier sind. Willkommen in der Welt der DevOps-Automatisierung!</p>
+            <p>Das ist die Zukunft der IT-Automatisierung. Flexibel, wiederholbar und absolut zuverlaessig.</p>
+            <p>Mit einem Klick hat Ansible dafuer gesorgt, dass Sie jetzt hier sind. Willkommen in der Welt der DevOps-Automatisierung!</p>
             <div class="footer">
               <p>Server administriert durch Ansible | Erstellt am {{ ansible_date_time.date }}</p>
             </div>
