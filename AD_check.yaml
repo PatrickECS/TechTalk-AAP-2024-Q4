@@ -1,0 +1,23 @@
+---
+- name: Check Active Directory Connection
+  hosts: localhost
+  gather_facts: true
+
+  tasks:
+    - name: Check LDAP Connection
+      ldap_search:
+        server_uri: "ldaps://{{ ad_host }}"  # Use ldaps for secure connection
+        bind_dn: "{{ ad_user }}"
+        bind_pw: "{{ ad_password }}"
+        base_dn: "{{ base_dn }}"
+        filter: "(objectClass=*)"              # Retrieve all objects
+      register: ad_connection_result
+      ignore_errors: yes
+
+    - name: Check if connected successfully
+      assert:
+        that:
+          - ad_connection_result is defined
+          - ad_connection_result.entries | length > 0
+        success_msg: "Successfully connected to Active Directory."
+        fail_msg: "Failed to connect to Active Directory or no entries found."
