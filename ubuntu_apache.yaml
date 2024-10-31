@@ -1,5 +1,5 @@
 ---
-- name: Apache Webserver configuration on Ubuntu
+- name:  Apache Webserver configuration on Ubuntu
   hosts: all
   become: true
 
@@ -10,20 +10,18 @@
         update_cache: yes
         upgrade: dist
 
-    - name: Install Apache
+    - name: Install Apache 
       apt:
         name: apache2
         state: present
 
-    
-
     - name: Automated index.html
       copy:
-        dest: /var/www/html/index.html
+        dest: "{{ apache_default_index }}"
         content: |
           <html>
           <head>
-            <title>{{ title_response.response }}</title>
+            <title>Automatisiert mit Ansible!</title>
             <style>
               body { font-family: Arial, sans-serif; background-color: #f4f4f9; color: #333; text-align: center; margin-top: 50px; }
               h1 { color: #336699; }
@@ -32,8 +30,10 @@
             </style>
           </head>
           <body>
-            <h1>{{ title_response.response }}</h1>
-            <p>{{ content_response.response }}</p>
+            <h1>Herzlich Willkommen!</h1>
+            <p>Diese Webseite wurde vollautomatisch mit Ansible aufgesetzt. In einem einzigen, durchdachten Prozess wurden die notwendigen Pakete installiert und dieser Apache-Webserver konfiguriert.</p>
+            <p>Das ist die Zukunft der IT-Automatisierung. Flexibel, wiederholbar und absolut zuverlaessig.</p>
+            <p>Mit einem Klick hat Ansible dafuer gesorgt, dass Sie jetzt hier sind. Willkommen in der Welt der DevOps-Automatisierung!</p>
             <div class="footer">
               <p>Server administriert durch Ansible | Erstellt am {{ ansible_date_time.date }}</p>
             </div>
