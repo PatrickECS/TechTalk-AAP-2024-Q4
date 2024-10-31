@@ -15,17 +15,7 @@
         name: apache2
         state: present
 
-    - name: Ask for the title of the webpage
-      prompt:
-        question: "Bitte geben Sie den Titel der Webseite ein:"
-        default: "{{ default_title }}"
-      register: title_response
-
-    - name: Ask for the content of the webpage
-      prompt:
-        question: "Bitte geben Sie den Inhalt der Webseite ein:"
-        default: "{{ default_content }}"
-      register: content_response
+    
 
     - name: Automated index.html
       copy:
