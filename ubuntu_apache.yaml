@@ -1,6 +1,6 @@
 ---
 - name: Configure Ubuntu VM with Apache Webserver 
-  hosts: localhost
+  hosts: all
   become: true
   gather_facts: true
 
