@@ -5,17 +5,17 @@
 
   tasks:
 
-    - name: System aktualisieren und Pakete upgraden
+    - name: Update System and packages upgrade
       apt:
         update_cache: yes
         upgrade: dist
 
-    - name: Apache installieren
+    - name: Install Apache 
       apt:
         name: apache2
         state: present
 
-    - name: Automatisierte Webseite erstellen
+    - name: Automated index.html
       copy:
         dest: "{{ apache_default_index }}"
         content: |
