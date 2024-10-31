@@ -17,8 +17,6 @@
         state: present
 
     - name: Indexfile
-      copy:
-        dest: "{{ apache_default_index }}"
         content: |
           <html>
           <head>
@@ -36,7 +34,7 @@
             <p>Das ist die Zukunft der IT-Automatisierung – flexibel, wiederholbar und absolut zuverlässig.</p>
             <p>Mit einem Klick hat Ansible dafür gesorgt, dass Sie jetzt hier sind. Willkommen in der Welt der DevOps-Automatisierung!</p>
             <div class="footer">
-              <p>Server administriert durch Ansible | Erstellt am {{ ansible_date_time.date }}</p>
+              <p>Server administriert durch Ansible </p>
             </div>
           </body>
           </html>
