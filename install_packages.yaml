@@ -16,4 +16,6 @@
           - htop
           - tree
           - podman
+          - vim
+          - git
         state: present
