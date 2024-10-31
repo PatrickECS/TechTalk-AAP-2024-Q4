@@ -1,6 +1,6 @@
 ---
 - name: Ubuntu VM mit Apache Webserver konfigurieren
-  hosts: ubuntu_vm
+  hosts: all
   become: true
 
   tasks:
