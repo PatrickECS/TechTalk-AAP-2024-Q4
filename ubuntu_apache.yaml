@@ -1,0 +1,49 @@
+---
+- name: Configure Ubuntu VM with Apache Webserver 
+  hosts: localhost
+  become: true
+  gather_facts: true
+
+  tasks:
+
+    - name: System Update and Upgrade
+      apt:
+        update_cache: yes
+        upgrade: dist
+
+    - name: Install Apache 
+      apt:
+        name: apache2
+        state: present
+
+    - name: Indexfile
+      copy:
+        dest: "{{ apache_default_index }}"
+        content: |
+          <html>
+          <head>
+            <title>Automatisiert mit Ansible!</title>
+            <style>
+              body { font-family: Arial, sans-serif; background-color: #f4f4f9; color: #333; text-align: center; margin-top: 50px; }
+              h1 { color: #336699; }
+              p { font-size: 1.1em; line-height: 1.6em; }
+              .footer { margin-top: 40px; font-size: 0.9em; color: #666; }
+            </style>
+          </head>
+          <body>
+            <h1>Herzlich Willkommen!</h1>
+            <p>Diese Webseite wurde vollautomatisch mit Ansible aufgesetzt. In einem einzigen, durchdachten Prozess wurden die notwendigen Pakete installiert und dieser Apache-Webserver konfiguriert.</p>
+            <p>Das ist die Zukunft der IT-Automatisierung – flexibel, wiederholbar und absolut zuverlässig.</p>
+            <p>Mit einem Klick hat Ansible dafür gesorgt, dass Sie jetzt hier sind. Willkommen in der Welt der DevOps-Automatisierung!</p>
+            <div class="footer">
+              <p>Server administriert durch Ansible | Erstellt am {{ ansible_date_time.date }}</p>
+            </div>
+          </body>
+          </html>
+      notify: restart apache
+
+  handlers:
+    - name: restart apache
+      service:
+        name: apache2
+        state: restarted
