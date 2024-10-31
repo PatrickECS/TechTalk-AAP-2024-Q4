@@ -1,5 +1,5 @@
 ---
-- name:  Apache Webserver configuration on Ubuntu
+- name: Apache Webserver configuration on Ubuntu
   hosts: all
   become: true
 
@@ -10,18 +10,30 @@
         update_cache: yes
         upgrade: dist
 
-    - name: Install Apache 
+    - name: Install Apache
       apt:
         name: apache2
         state: present
 
+    - name: Ask for the title of the webpage
+      prompt:
+        question: "Bitte geben Sie den Titel der Webseite ein:"
+        default: "{{ default_title }}"
+      register: title_response
+
+    - name: Ask for the content of the webpage
+      prompt:
+        question: "Bitte geben Sie den Inhalt der Webseite ein:"
+        default: "{{ default_content }}"
+      register: content_response
+
     - name: Automated index.html
       copy:
-        dest: "{{ apache_default_index }}"
+        dest: /var/www/html/index.html
         content: |
           <html>
           <head>
-            <title>Automatisiert mit Ansible!</title>
+            <title>{{ title_response.response }}</title>
             <style>
               body { font-family: Arial, sans-serif; background-color: #f4f4f9; color: #333; text-align: center; margin-top: 50px; }
               h1 { color: #336699; }
@@ -30,10 +42,8 @@
             </style>
           </head>
           <body>
-            <h1>Herzlich Willkommen!</h1>
-            <p>Diese Webseite wurde vollautomatisch mit Ansible aufgesetzt. In einem einzigen, durchdachten Prozess wurden die notwendigen Pakete installiert und dieser Apache-Webserver konfiguriert.</p>
-            <p>Das ist die Zukunft der IT-Automatisierung. Flexibel, wiederholbar und absolut zuverlaessig.</p>
-            <p>Mit einem Klick hat Ansible dafuer gesorgt, dass Sie jetzt hier sind. Willkommen in der Welt der DevOps-Automatisierung!</p>
+            <h1>{{ title_response.response }}</h1>
+            <p>{{ content_response.response }}</p>
             <div class="footer">
               <p>Server administriert durch Ansible | Erstellt am {{ ansible_date_time.date }}</p>
             </div>
