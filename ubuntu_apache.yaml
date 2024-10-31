@@ -1,22 +1,23 @@
 ---
-- name: Configure Ubuntu VM with Apache Webserver 
-  hosts: all
+- name: Ubuntu VM mit Apache Webserver konfigurieren
+  hosts: ubuntu_vm
   become: true
-  gather_facts: true
 
   tasks:
 
-    - name: System Update and Upgrade
+    - name: System aktualisieren und Pakete upgraden
       apt:
         update_cache: yes
         upgrade: dist
 
-    - name: Install Apache 
+    - name: Apache installieren
       apt:
         name: apache2
         state: present
 
-    - name: Indexfile
+    - name: Automatisierte Webseite erstellen
+      copy:
+        dest: "{{ apache_default_index }}"
         content: |
           <html>
           <head>
@@ -34,7 +35,7 @@
             <p>Das ist die Zukunft der IT-Automatisierung – flexibel, wiederholbar und absolut zuverlässig.</p>
             <p>Mit einem Klick hat Ansible dafür gesorgt, dass Sie jetzt hier sind. Willkommen in der Welt der DevOps-Automatisierung!</p>
             <div class="footer">
-              <p>Server administriert durch Ansible </p>
+              <p>Server administriert durch Ansible | Erstellt am {{ ansible_date_time.date }}</p>
             </div>
           </body>
           </html>
