@@ -7,8 +7,6 @@
     - name: create VM
       community.vmware.vmware_guest:
         hostname: "{{ vcenter_hostname }}"
-        username: "{{ vcenter_username }}"
-        password: "{{ vcenter_password }}"
         validate_certs: "{{ vcenter_validate_certs }}"
         datacenter: "{{ vcenter_datacenter }}"
         template: "{{ vm_template }}"
