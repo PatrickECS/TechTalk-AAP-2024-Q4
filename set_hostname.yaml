@@ -1,15 +1,40 @@
----  
-- name: Set Hostname
-  hosts: Ubuntu-Server
+---
+- name: Set Hostname for VMware VM
+  hosts: localhost
   become: false
   gather_facts: false
+  collections:
+    - community.vmware
+
+  vars:
+    vcenter_hostname: "vcenter.example.com"
+    vcenter_username: "administrator@vsphere.local"
+    vcenter_password: "your_password"
+    vm_name: "Ubuntu-Server"           # Name of the VM in vCenter
+    new_hostname: "new-hostname"        # Desired hostname
+
   tasks:
     - name: Set Hostname for a VM
-      vmware_guest_operations:
-        vm_name: "{{ vm_name }}"
-        vm_host: "{{ vcenter_host }}"
-        operation: run_script
-        script: |
-          sudo hostnamectl set-hostname "{{ new_hostname }}"
-          sudo reboot
-        wait_for_reboot: yes
+      community.vmware.vmware_guest:
+        hostname: "{{ vcenter_hostname }}"
+        validate_certs: no              # Set to "yes" if using SSL with trusted certs
+        name: "{{ vm_name }}"
+        state: poweredon                # Ensure the VM is powered on
+        guest_operations:
+          type: run_program
+          program_path: "/bin/bash"
+          program_arguments: "-c 'sudo hostnamectl set-hostname {{ new_hostname }} && sudo reboot'"
+      register: result
+
+    - name: Wait for VM to come back online after reboot
+      wait_for:
+        host: "{{ vm_name }}"
+        port: 22
+        delay: 10
+        timeout: 300
+      when: result is succeeded
+
+    - name: Display result
+      debug:
+        msg: "Hostname changed successfully to {{ new_hostname }} for VM '{{ vm_name }}'."
+       
