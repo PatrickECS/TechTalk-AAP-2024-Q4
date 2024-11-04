@@ -7,8 +7,6 @@
     - name: Delete folder
       community.vmware.vcenter_folder:
         hostname: "{{ vcenter_hostname }}"
-        username: "{{ vcenter_username }}"
-        password: "{{ vcenter_password }}"
         validate_certs: "{{ vcenter_validate_certs }}"
         datacenter: "{{ vcenter_datacenter }}"
         folder_name: "{{ vcenter_destination_folder }}"
