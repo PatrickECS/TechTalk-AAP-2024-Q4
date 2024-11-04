@@ -1,0 +1,15 @@
+- name: Ensure AD user exists in a specified OU and is part of specific groups
+  hosts: all
+  gather_facts: no
+
+  tasks:
+    - name: Ensure user bob is present in OU ou=test,dc=domain,dc=local
+      microsoft.ad.user:
+        identity: "{{ user_identity }}"          
+        password: "{{ user_password }}"          
+        state: present
+        path: ou=Technik,dc=arrowlab,dc=local
+        groups:
+          set:
+            - Arrowlab-Users
+ 
