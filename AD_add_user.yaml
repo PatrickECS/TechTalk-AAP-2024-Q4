@@ -4,13 +4,16 @@
   gather_facts: no
 
   tasks:
-    - name: Ensure user bob is present in OU ou=xxx,dc=xxx,dc=xxx
+    - name: Ensure user is present in OU
       microsoft.ad.user:
-        identity: "{{ user_identity }}"          
-        password: "{{ user_password }}"          
+        identity: "{{ user_identity }}"                    
+        password: "{{ user_password }}"              )
         state: present
         path: ou=Technik,dc=arrowlab,dc=local
         groups:
           set:
             - Arrowlab-Users
- 
+
+    - name: Display success message
+      debug:
+        msg: "User '{{ user_identity }}' was successfully created or updated in OU 'ou=Technik,dc=arrowlab,dc=local' and added to group 'Arrowlab-Users'."
