@@ -7,7 +7,7 @@
     - name: Ensure user is present in OU
       microsoft.ad.user:
         identity: "{{ user_identity }}"                    
-        password: "{{ user_password }}"              )
+        password: "{{ user_password }}"              
         state: present
         path: ou=Technik,dc=arrowlab,dc=local
         groups:
