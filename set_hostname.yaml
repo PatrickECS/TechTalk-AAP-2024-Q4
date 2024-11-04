@@ -1,6 +1,6 @@
 ---  
 - name: Set Hostname
-  hosts: localhost
+  hosts: Ubuntu-Server
   become: false
   gather_facts: false
   tasks:
