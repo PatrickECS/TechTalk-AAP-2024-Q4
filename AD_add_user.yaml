@@ -3,7 +3,7 @@
   gather_facts: no
 
   tasks:
-    - name: Ensure user bob is present in OU ou=test,dc=domain,dc=local
+    - name: Ensure user bob is present in OU ou=xxx,dc=xxx,dc=xxx
       microsoft.ad.user:
         identity: "{{ user_identity }}"          
         password: "{{ user_password }}"          
