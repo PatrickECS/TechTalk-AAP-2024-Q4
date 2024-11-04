@@ -1,7 +1,7 @@
 ---  
 - name: Set Hostname
-  hosts: localhosz
-  beceome: false
+  hosts: localhost
+  become: false
   gather_facts: false
   tasks:
     - name: Set Hostname for a VM
