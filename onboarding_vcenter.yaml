@@ -1,3 +1,4 @@
+---
 - name: Create Folder for Onboarding User
   hosts: localhost
   become: false
