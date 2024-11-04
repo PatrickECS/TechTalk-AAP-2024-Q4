@@ -1,5 +1,5 @@
 - name: Ensure AD user exists in a specified OU and is part of specific groups
-  hosts: all
+  hosts: localhost
   gather_facts: no
 
   tasks:
