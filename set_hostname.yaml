@@ -1,5 +1,10 @@
 ---  
 - name: Set Hostname
+  hosts: localhosz
+  beceome: false
+  gather_facts: false
+  tasks:
+    - name: Set Hostname for a VM
       vmware_guest_operations:
         vm_name: "{{ vm_name }}"
         vm_host: "{{ vcenter_host }}"
