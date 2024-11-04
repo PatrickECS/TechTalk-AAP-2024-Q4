@@ -1,0 +1,10 @@
+---  
+- name: Set Hostname
+      vmware_guest_operations:
+        vm_name: "{{ vm_name }}"
+        vm_host: "{{ vcenter_host }}"
+        operation: run_script
+        script: |
+          sudo hostnamectl set-hostname "{{ new_hostname }}"
+          sudo reboot
+        wait_for_reboot: yes
