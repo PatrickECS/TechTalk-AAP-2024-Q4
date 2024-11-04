@@ -1,3 +1,4 @@
+---
 - name: Delete Folder and Resource Pool for User
   hosts: localhost
   become: false
