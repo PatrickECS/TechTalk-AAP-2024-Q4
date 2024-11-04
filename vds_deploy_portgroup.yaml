@@ -6,8 +6,6 @@
     - name: Create a new port group with static port binding
       community.vmware.vmware_dvs_portgroup:
         hostname: "{{ vcenter_hostname }}"
-        username: "{{ vcenter_username }}"
-        password: "{{ vcenter_password }}"
         validate_certs: no
         switch_name: "{{ switch_name}}"
         portgroup_name: "{{ portgroup_name }}"
