@@ -3,15 +3,6 @@
   hosts: localhost
   become: false
   gather_facts: false
-  collections:
-    - community.vmware
-
-  vars:
-    vcenter_hostname: "vcenter.example.com"
-    vcenter_username: "administrator@vsphere.local"
-    vcenter_password: "your_password"
-    vm_name: "Ubuntu-Server"           # Name of the VM in vCenter
-    new_hostname: "new-hostname"        # Desired hostname
 
   tasks:
     - name: Set Hostname for a VM
