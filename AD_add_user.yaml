@@ -1,11 +1,11 @@
 ---
-- name: Add user to Active Directory and assign to group
+- name: Add user to Microsoft Active Directory and assign to group
   hosts: localhost
-  gather_facts: no
+  gather_facts: yes
 
   tasks:
     - name: Ensure user exists in Active Directory
-      community.microsoft.win_domain_user:
+      microsoft.ad.win_domain_user:
         name: "{{ username }}"
         password: "{{ password }}"
         firstname: "{{ first_name }}"
@@ -15,7 +15,7 @@
       register: user_creation
 
     - name: Add user to specified AD group
-      community.microsoft.win_domain_group_membership:
+      microsoft.ad.win_domain_group_membership:
         name: "{{ user_group }}"
         members:
           - "{{ username }}"
