@@ -4,26 +4,14 @@
   gather_facts: yes
 
   tasks:
-    - name: Ensure user exists in Active Directory
-      microsoft.ad.win_user:
-        name: "{{ username }}"
-        password: "{{ password }}"
-        firstname: "{{ first_name }}"
-        lastname: "{{ last_name }}"
-        user_ou: "{{ user_ou }}"
-        state: present
-      register: user_creation
-
-    - name: Add user to specified AD group
-      microsoft.ad.win_domain_group_membership:
-        name: "{{ user_group }}"
-        members:
-          - "{{ username }}"
-        state: present
-      when: user_creation.changed  # Only adds to group if the user was created or modified
-      register: group_addition
-
-    - name: Display success message
-      debug:
-        msg: "User '{{ username }}' has been successfully added to the OU '{{ user_ou }}' and the group '{{ user_group }}'."
-      when: group_addition.changed  # Only displays if the user was added to the group
+   - name: Ensure user Bob is present with address information
+     microsoft.ad.user:
+       identity: bob
+       firstname: Bob
+       surname: Smith
+       company: BobCo
+       password: B0bP4ssw0rd
+       state: present
+       groups:
+         set:
+           - ArrowLab-Users
