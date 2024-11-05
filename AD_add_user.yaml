@@ -5,7 +5,7 @@
 
   tasks:
     - name: Ensure user exists in Active Directory
-      microsoft.ad.win_domain_user:
+      microsoft.ad.win_user:
         name: "{{ username }}"
         password: "{{ password }}"
         firstname: "{{ first_name }}"
