@@ -1,6 +1,20 @@
 - name: Ensure user Bob is present with address information
-  hosts: localhost 
-  
+  hosts: localhost
+
+  vars:
+    user_identity: "bob@example.com"  # Replace with Bob's identity (e.g., email or username)
+    user_firstname: "Bob"
+    user_surname: "Smith"  # Replace with Bob's surname
+    user_company: "Example Corp"  # Replace with the company name
+    user_password: "SecurePassword123!"  # Replace with a secure password
+    user_groups: ["Employees"]  # Replace with relevant groups
+    user_street: "123 Main St"  # Replace with Bob's street address
+    user_city: "Anytown"  # Replace with Bob's city
+    user_state_province: "Anystate"  # Replace with Bob's state or province
+    user_postal_code: "12345"  # Replace with Bob's postal code
+    user_country: "USA"  # Replace with Bob's country
+    user_telephone: "555-555-5555"  # Replace with Bob's telephone number
+    user_ou: "OU=Employees,DC=example,DC=com"  # Replace with the correct OU path
 
   tasks:
     - name: Ensure user Bob is present with address information
@@ -8,7 +22,6 @@
         identity: "{{ user_identity }}"
         firstname: "{{ user_firstname }}"
         surname: "{{ user_surname }}"
-        company: "{{ user_company }}"
         password: "{{ user_password }}"
         state: present
         groups:
@@ -18,9 +31,7 @@
         state_province: "{{ user_state_province }}"
         postal_code: "{{ user_postal_code }}"
         country: "{{ user_country }}"
-        attributes:
-          set:
-            telephoneNumber: "{{ user_telephone }}"
+        ou: "{{ user_ou }}"
 
     - name: Ensure user Bob is created and use custom credentials to create the user
       microsoft.ad.user:
@@ -29,4 +40,4 @@
         surname: "{{ user_surname }}"
         password: "{{ user_password }}"
         state: present
-    
+        ou: "{{ user_ou }}"
