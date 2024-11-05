@@ -1,19 +1,29 @@
 ---
-- name: Ensure AD user exists in a specified OU and is part of specific groups
-  hosts: all
+- name: Add user to Active Directory and assign to group
+  hosts: localhost
   gather_facts: no
 
   tasks:
-    - name: Ensure user is present in OU
-      microsoft.ad.user:
-        identity: "{{ user_identity }}"                    
-        password: "{{ user_password }}"              
+    - name: Ensure user exists in Active Directory
+      community.microsoft.win_domain_user:
+        name: "{{ username }}"
+        password: "{{ password }}"
+        firstname: "{{ first_name }}"
+        lastname: "{{ last_name }}"
+        user_ou: "{{ user_ou }}"
         state: present
-        path: ou=Technik,dc=arrowlab,dc=local
-        groups:
-          set:
-            - Arrowlab-Users
+      register: user_creation
+
+    - name: Add user to specified AD group
+      community.microsoft.win_domain_group_membership:
+        name: "{{ user_group }}"
+        members:
+          - "{{ username }}"
+        state: present
+      when: user_creation.changed  # Only adds to group if the user was created or modified
+      register: group_addition
 
     - name: Display success message
       debug:
-        msg: "User '{{ user_identity }}' was successfully created or updated in OU 'ou=Technik,dc=arrowlab,dc=local' and added to group 'Arrowlab-Users'."
+        msg: "User '{{ username }}' has been successfully added to the OU '{{ user_ou }}' and the group '{{ user_group }}'."
+      when: group_addition.changed  # Only displays if the user was added to the group
