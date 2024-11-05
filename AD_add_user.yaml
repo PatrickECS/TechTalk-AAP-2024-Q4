@@ -29,6 +29,4 @@
         surname: "{{ user_surname }}"
         password: "{{ user_password }}"
         state: present
-        domain_username: DOMAIN\admin-account  # Replace with actual admin account
-        domain_password: SomePas2w0rd          # Replace with actual password
-        domain_server: domain@DOMAIN.COM         # Replace with actual domain server
+    
