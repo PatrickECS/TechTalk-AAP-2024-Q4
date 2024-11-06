@@ -6,7 +6,7 @@
   tasks:
     - name: Ensure ansible user is configured
       ansible.builtin.user:
-        name: ansible
+        name: ansible-host1
         append: yes
         state: absent
         createhome: yes
@@ -15,7 +15,7 @@
     - name: Allow ansible to have passwordless sudo
       ansible.builtin.lineinfile:
         dest: /etc/sudoers
-        line: 'ansible ALL=(ALL) NOPASSWD: ALL'
+        line: 'ansible-host1 ALL=(ALL) NOPASSWD: ALL'
         validate: 'visudo -cf %s'
 
     - name: Confirm setup completion
