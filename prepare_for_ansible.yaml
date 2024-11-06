@@ -8,7 +8,7 @@
       ansible.builtin.user:
         name: ansible-host1
         append: yes
-        state: absent
+        state: present
         createhome: yes
         shell: /bin/bash
 
