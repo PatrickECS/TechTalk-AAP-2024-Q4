@@ -1,8 +1,8 @@
 ---
 - name: Change address
   hosts: all
-  connection: local
-  gather_facts: no
+  connection: all
+  gather_facts: yes
 
   tasks:
     - name: Create Address
