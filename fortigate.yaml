@@ -1,0 +1,13 @@
+---
+- name: Change address
+  hosts: all
+  connection: local
+  gather_facts: no
+
+  tasks:
+    - name: Create Address
+      fortinet.fortios.fortios_firewall_address:
+        state: "present"
+        firewall_address:
+          name: "test_123"
+          subnet: "10.1.1.1/24"
