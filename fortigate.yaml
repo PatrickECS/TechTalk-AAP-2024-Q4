@@ -7,7 +7,6 @@
   tasks:
     - name: Create Address
       fortinet.fortios.fortios_firewall_address:
-        #access_token: "3jjqcp18p5p5h1y9Qs3gb5sphrhs8q"
         access_token: "{{ ansible_password }}"
         state: "present"
         firewall_address:
