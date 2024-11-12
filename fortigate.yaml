@@ -15,4 +15,4 @@
 
     - name: Debug message after address creation
       debug:
-        msg: "Address '{{ address_name }}' with subnet "{{ subnet }}" has been successfully created or updated."
+        msg: "Address '{{ address_name }}' with subnet '{{ subnet }}' has been successfully created or updated."
