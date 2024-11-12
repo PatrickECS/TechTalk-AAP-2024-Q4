@@ -1,6 +1,6 @@
 ---
 - name: Change address
-  hosts: MAWE-Fortigate-test
+  hosts: localhost
   connection: httpapi
   gather_facts: no
 
