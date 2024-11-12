@@ -1,6 +1,6 @@
 ---
 - name: Change address
-  hosts: localhost
+  hosts: Fortigate Inventory
   connection: httpapi
   gather_facts: no
 
