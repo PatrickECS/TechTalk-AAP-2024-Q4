@@ -10,9 +10,9 @@
         access_token: "{{ ansible_password }}"
         state: "present"
         firewall_address:
-          name: "test_123"
-          subnet: "10.1.1.1/24"
+          name: '{{ address_name }}'
+          subnet: "{{ subnet }}"
 
     - name: Debug message after address creation
       debug:
-        msg: "Address 'test_123' with subnet '10.1.1.1/24' has been successfully created or updated."
+        msg: "Address '{{ address_name }}' with subnet "{{ subnet }}" has been successfully created or updated."
