@@ -1,6 +1,6 @@
 ---
 - name: Change address
-  hosts: Fortigate Inventory
+  hosts: MAWE-Fortigate-test
   connection: httpapi
   gather_facts: no
 
