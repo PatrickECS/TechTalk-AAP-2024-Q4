@@ -1,6 +1,6 @@
 ---
 - name: Fetch Junos Running Configuration
-  hosts: juniper_devices
+  hosts: Juniper Switch
   gather_facts: no
   connection: network_cli 
 
