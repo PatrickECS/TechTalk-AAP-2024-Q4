@@ -7,8 +7,7 @@
   tasks:
     - name: Create Address
       fortinet.fortios.fortios_firewall_address:
-        username: "{{ ansible_user }}"     # Username for SSH
-        password: "{{ ansible_password }}" # Password for SSH login
+        access_token: "{{ ansible_password }}"
         state: "present"
         firewall_address:
           name: '{{ address_name }}'
