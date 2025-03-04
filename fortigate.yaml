@@ -1,13 +1,14 @@
 ---
 - name: Change address
   hosts: Fortigate-Ansible-Demo
-  connection: httpapi
+  connection: ssh
   gather_facts: no
 
   tasks:
     - name: Create Address
       fortinet.fortios.fortios_firewall_address:
-        access_token: "{{ ansible_password }}"
+        username: "{{ ansible_user }}"     # Username for SSH
+        password: "{{ ansible_password }}" # Password for SSH login
         state: "present"
         firewall_address:
           name: '{{ address_name }}'
