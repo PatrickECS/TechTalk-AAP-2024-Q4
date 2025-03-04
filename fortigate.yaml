@@ -1,6 +1,6 @@
 ---
 - name: Change address
-  hosts: MAWE-Fortigate-test
+  hosts: Fortigate-Ansible-Demo
   connection: httpapi
   gather_facts: no
 
