@@ -1,7 +1,6 @@
 ---
 - name: Change address
   hosts: Fortigate-Ansible-Demo
-  connection: ssh
   gather_facts: no
 
   tasks:
