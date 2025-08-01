@@ -1,6 +1,6 @@
 ---
 - name:  Apache Webserver configuration on Ubuntu
-  hosts: 	Ubuntu-Server
+  hosts: Ubuntu-Server-Change-host
   become: true
 
   tasks:
