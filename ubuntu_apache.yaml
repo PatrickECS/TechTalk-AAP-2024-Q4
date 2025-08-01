@@ -1,6 +1,6 @@
 ---
 - name:  Apache Webserver configuration on Ubuntu
-  hosts: all
+  hosts: 	Ubuntu Inventory
   become: true
 
   tasks:
