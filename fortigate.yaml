@@ -1,6 +1,8 @@
 ---
 - name: Change address
   hosts: Fortigate-Ansible-Demo
+  collections:
+    - fortinet.fortios
   gather_facts: no
 
   tasks:
