@@ -1,0 +1,53 @@
+---
+- name: Find VMs unused for 90+ days in vCenter
+  hosts: localhost
+  gather_facts: false
+  collections:
+    - community.vmware
+
+  tasks:
+
+    - name: Get current timestamp
+      ansible.builtin.set_fact:
+        current_time: "{{ lookup('ansible.builtin.pipe', 'date +%s') | int }}"
+
+    - name: Gather all VMs from vCenter
+      vmware_vm_info:
+        hostname: "{{ vcenter_hostname }}"
+        username: "{{ vcenter_username }}"
+        password: "{{ vcenter_password }}"
+        validate_certs: "{{ vcenter_validate_certs }}"
+      register: vm_info
+
+    - name: Filter VMs unused for 90+ days
+      vars:
+        age_threshold: "{{ (days_threshold * 24 * 60 * 60) | int }}"
+      set_fact:
+        old_vms: >-
+          {{
+            vm_info.virtual_machines | selectattr('boot_time', 'defined') | selectattr('boot_time') | select(
+              'match',
+              '.*'
+            ) | selectattr(
+              'boot_time',
+              '!=',
+              ''
+            ) | selectattr(
+              'boot_time',
+              '!=',
+              None
+            ) | select(
+              'extract',
+              lambda vm: (
+                current_time - (vm.boot_time | to_datetime('%Y-%m-%dT%H:%M:%S') | to_timestamp)
+              ) > age_threshold
+            ) | list
+          }}
+
+    - name: Show VMs not booted in the last 90+ days
+      debug:
+        msg: |
+          VM: {{ item.name }}
+          Power State: {{ item.power_state }}
+          Last Boot Time: {{ item.boot_time }}
+      loop: "{{ old_vms }}"
