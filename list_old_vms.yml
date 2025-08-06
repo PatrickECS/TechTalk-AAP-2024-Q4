@@ -1,0 +1,21 @@
+---
+- name: List old or inactive VMs in vCenter
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: Gather information about all virtual machines
+      community.vmware.vmware_vm_info:
+        hostname: "{{ vcenter_hostname }}"
+        username: "{{ vcenter_username }}"
+        password: "{{ vcenter_password }}"
+        validate_certs: "{{ vcenter_validate_certs }}"
+      register: vm_info
+
+    - name: Filter VMs that are powered off
+      set_fact:
+        old_vms: "{{ vm_info.virtual_machines | selectattr('power_state', 'equalto', 'poweredOff') | list }}"
+
+    - name: Display old (powered-off) VMs
+      debug:
+        var: old_vms
