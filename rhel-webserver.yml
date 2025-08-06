@@ -1,6 +1,6 @@
 ---
 - name: Apache Webserver configuration on OpenShift 
-  hosts: RHEL-Server
+  hosts: namespace_workloads
   become: true
   collections:
     - redhat.openshift.k8s
